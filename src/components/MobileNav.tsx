@@ -103,8 +103,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               boxShadow={"lg"}
               zIndex={10}
             >
-              <MenuItem>Alterar senha</MenuItem>
-              <MenuDivider />
+              {/* <MenuDivider /> */}
               <MenuItem onClick={() => logOff()}>Sair</MenuItem>
             </MenuList>
           </Menu>

@@ -13,7 +13,6 @@ import { FaLaptop } from "react-icons/fa";
 import Layout from "../../components/Layout";
 import StatsCard from "../../components/StatsCard";
 
-
 const Home = () => {
   
   return (
