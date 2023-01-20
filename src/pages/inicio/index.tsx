@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         destination: "/",
         permanent: false,
       },
-    };
+    }; 
   }
 
   return {

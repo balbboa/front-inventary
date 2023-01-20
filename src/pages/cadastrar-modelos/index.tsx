@@ -26,29 +26,29 @@ import DefaultTable from "../../components/Table";
 import { colors } from "../../utils/colors";
 // Interfaces
 import {
-  IOrganizationRegister,
-  IOrganizationRequest
-} from "../../functions/organizations/data/organizationsInterfaces";
+  IModelRegister,
+  IModelRequest
+} from "../../functions/models/data/modelsInterfaces";
 // Funções
-import handleEditOrganization, {
-  getOrganizations,
-  handleSaveOrganization
-} from "../../functions/organizations/data/organizationFunctions";
+import handleEditModel, {
+  getModels,
+  handleSaveModel
+} from "../../functions/models/data/modelsFunctions";
 
-export const ORGANIZATION_INITIAL_DATA: IOrganizationRegister = {
+export const MODEL_INITIAL_DATA: IModelRegister = {
   name: "",
 };
 
 // Componente principal
-const Faccoes = () => {
+const CadastrarModelos = () => {
   // hooks
 
   // Organização
-  const [registerOrganization, setRegisterOrganization] =
-    useState<IOrganizationRegister>(ORGANIZATION_INITIAL_DATA);
+  const [registerModel, setRegisterModel] =
+    useState<IModelRegister>(MODEL_INITIAL_DATA);
   // Requisisões das organizações
-  const [organizationRequest, setOrganizationRequest] =
-    useState<IOrganizationRequest>({} as IOrganizationRequest);
+  const [modelRequest, setModelRequest] =
+    useState<IModelRequest>({} as IModelRequest);
   // Erros do formulário
   const [formError, setFormError] = useState("");
   // Avisos
@@ -58,8 +58,8 @@ const Faccoes = () => {
 
   const handleGetData = async () => {
     // Obtem as organizações
-    const organization = await getOrganizations();
-    setOrganizationRequest(organization);
+    const model = await getModels();
+    setModelRequest(model);
   }
 
   useEffect(() => {
@@ -70,10 +70,10 @@ const Faccoes = () => {
   const colorButtonEdit = useColorModeValue("gray.300", colors.graySky);
 
   return (
-    <Layout props={{ title: "Facções" }}>
+    <Layout props={{ title: "Cadastrar modelo" }}>
       <Card
         props={{
-          title: isEdit ? "Editar facção" : "Cadastrar facção",
+          title: isEdit ? "Editar modelo" : "Cadastrar modelo",
           maxW: 500,
         }}
       >
@@ -82,11 +82,11 @@ const Faccoes = () => {
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Input
               type="text"
-              value={registerOrganization.name}
-              isInvalid={formError === "registerOrganization"}
+              value={registerModel.name}
+              isInvalid={formError === "registerModel"}
               onChange={(event) => {
-                setRegisterOrganization({
-                  ...registerOrganization,
+                setRegisterModel({
+                  ...registerModel,
                   name: event.currentTarget.value.toUpperCase(),
                 });
                 setFormError("");
@@ -98,17 +98,17 @@ const Faccoes = () => {
               variant="solid"
               onClick={() => {
                 isEdit
-                  ? handleEditOrganization(
-                    registerOrganization,
-                    setOrganizationRequest,
-                    setRegisterOrganization,
+                  ? handleEditModel(
+                    registerModel,
+                    setModelRequest,
+                    setRegisterModel,
                     toast,
                     setFormError
                   )
-                  : handleSaveOrganization(
-                    registerOrganization,
-                    setOrganizationRequest,
-                    setRegisterOrganization,
+                  : handleSaveModel(
+                    registerModel,
+                    setModelRequest,
+                    setRegisterModel,
                     toast,
                     setFormError
                   );
@@ -122,19 +122,19 @@ const Faccoes = () => {
       </Card>
       <DefaultTable
         props={{
-          tableName: "Facções",
+          tableName: "Modelos",
           header: ["Nome"],
-          count: organizationRequest.count,
+          count: modelRequest.count,
         }}
       >
-        {organizationRequest.organizations?.length > 0 ? (
-          organizationRequest.organizations.map(
-            (organization: IOrganizationRegister, index: number) => {
+        {modelRequest.models?.length > 0 ? (
+          modelRequest.models.map(
+            (model: IModelRegister, index: number) => {
               return (
                 <Fragment key={index}>
                   <Tr>
-                    <Td width={5}>{organization.id}</Td>
-                    <Td>{organization.name}</Td>
+                    <Td width={5}>{model.id}</Td>
+                    <Td>{model.name}</Td>
                     <Td>
                       <Button
                         leftIcon={<FiEdit />}
@@ -144,14 +144,14 @@ const Faccoes = () => {
                         onClick={() => {
                           toast({
                             title:
-                              "Organização " +
-                              organization.name +
+                              "Modelo " +
+                              model.name +
                               " selecionada",
                             status: "info",
                             position: "top",
                             isClosable: true,
                           });
-                          setRegisterOrganization(organization),
+                          setRegisterModel(model),
                             setIsEdit(true);
                         }}
                       >
@@ -165,7 +165,7 @@ const Faccoes = () => {
           )
         ) : (
           <Tr>
-            <Td>Nenhuma facção</Td>
+            <Td>Nenhum modelo</Td>
           </Tr>
         )}
       </DefaultTable>
@@ -173,7 +173,7 @@ const Faccoes = () => {
   );
 };
 
-export default Faccoes;
+export default CadastrarModelos;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { ["nextauth.token"]: token } = parseCookies(context);

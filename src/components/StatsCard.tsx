@@ -21,8 +21,7 @@ const StatsCard = (props: StatsCardProps) => {
       shadow={"2xl"}
       bg={useColorModeValue("white", colors.grayWolf)}
       rounded={"lg"}
-      onClick={() => Router.push(path)
-      }
+      onClick={() => Router.push(path)}
     >
       <Flex justifyContent={"start"} alignItems={"center"}>
         <Box
