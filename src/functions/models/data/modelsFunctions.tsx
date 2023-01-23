@@ -2,16 +2,15 @@
 import { ToastId, UseToastOptions } from "@chakra-ui/react";
 // React
 import { Dispatch, SetStateAction } from "react";
-// Axios
-import { getAPIClient } from "../../../services/axios";
 // Dado estático
 import { MODEL_INITIAL_DATA } from "../../../pages/cadastrar-modelos";
 // Interfaces
-import api from "../../../services/api";
 import {
   IModelRegister,
   IModelRequest
 } from "./modelsInterfaces";
+import apiLaravel from "../../../services/apiLaravel";
+import { getAPIClientLaravel } from "../../../services/axiosLaravel";
 
 export const getModels = async (
 ) => {
@@ -21,14 +20,14 @@ export const getModels = async (
     models: [],
   } as IModelRequest;
 
-  await api.get("models").then((request) => {
+  await apiLaravel.get("fabricante").then((request) => {
     model = request.data;
   });
 
   return model;
 };
 
-// Salva a organização
+// Salva o modelo
 export const handleSaveModel = async (
   registerModel: IModelRegister,
   setModelRequest: Dispatch<SetStateAction<IModelRequest>>,
@@ -36,10 +35,10 @@ export const handleSaveModel = async (
   toast: (options?: UseToastOptions | undefined) => ToastId,
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
-  const api = getAPIClient();
-  if (registerModel.name !== "") {
-    await api
-      .post("models", registerModel)
+  const apiLaravel = getAPIClientLaravel();
+  if (registerModel.nome !== "") {
+    await apiLaravel
+      .post("fabricante", registerModel)
       .then(async () => {
         // Reinicia o formulário
         setRegisterModel(MODEL_INITIAL_DATA);
@@ -84,10 +83,10 @@ const handleEditModel = async (
   toast: (options?: UseToastOptions | undefined) => ToastId,
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
-  const api = getAPIClient();
-  if (registerModel.name !== "") {
-    await api
-      .patch("models/" + registerModel.id, registerModel)
+  const apiLaravel = getAPIClientLaravel();
+  if (registerModel.nome !== "") {
+    await apiLaravel
+      .patch("fabricante/" + registerModel.id, registerModel)
       .then(async () => {
         // Reinicia o formulário
         setRegisterModel(MODEL_INITIAL_DATA);

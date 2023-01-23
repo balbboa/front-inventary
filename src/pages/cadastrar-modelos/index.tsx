@@ -36,7 +36,7 @@ import handleEditModel, {
 } from "../../functions/models/data/modelsFunctions";
 
 export const MODEL_INITIAL_DATA: IModelRegister = {
-  name: "",
+  nome: "",
 };
 
 // Componente principal
@@ -78,16 +78,16 @@ const CadastrarModelos = () => {
         }}
       >
         <FormControl padding={5}>
-          <FormLabel>Nome</FormLabel>
+          <FormLabel>Modelo</FormLabel>
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Input
               type="text"
-              value={registerModel.name}
+              value={registerModel.nome}
               isInvalid={formError === "registerModel"}
               onChange={(event) => {
                 setRegisterModel({
                   ...registerModel,
-                  name: event.currentTarget.value.toUpperCase(),
+                  nome: event.currentTarget.value.toUpperCase(),
                 });
                 setFormError("");
               }}
@@ -134,7 +134,7 @@ const CadastrarModelos = () => {
                 <Fragment key={index}>
                   <Tr>
                     <Td width={5}>{model.id}</Td>
-                    <Td>{model.name}</Td>
+                    <Td>{model.nome}</Td>
                     <Td>
                       <Button
                         leftIcon={<FiEdit />}
@@ -145,7 +145,7 @@ const CadastrarModelos = () => {
                           toast({
                             title:
                               "Modelo " +
-                              model.name +
+                              model.nome +
                               " selecionada",
                             status: "info",
                             position: "top",

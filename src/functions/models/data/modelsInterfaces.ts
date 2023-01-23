@@ -1,6 +1,6 @@
 export interface IModelRegister {
   id?: number;
-  name: string;
+  nome: string;
 }
 
 export interface IModelRequest {
