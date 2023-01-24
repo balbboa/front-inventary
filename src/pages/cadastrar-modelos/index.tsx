@@ -6,7 +6,9 @@ import {
   FormLabel,
   Input,
   Td,
-  Tr, useColorModeValue, useToast
+  Tr,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 //NextJS
 import { GetServerSideProps } from "next";
@@ -27,15 +29,14 @@ import { colors } from "../../utils/colors";
 // Interfaces
 import {
   IModelRegister,
-  IModelRequest
 } from "../../functions/models/data/modelsInterfaces";
 // Funções
 import handleEditModel, {
   getModels,
-  handleSaveModel
+  handleSaveModel,
 } from "../../functions/models/data/modelsFunctions";
 
-export const MODEL_INITIAL_DATA: IModelRegister = {
+export const MODEL_INITIAL_DATA: any = {
   nome: "",
 };
 
@@ -45,10 +46,9 @@ const CadastrarModelos = () => {
 
   // Organização
   const [registerModel, setRegisterModel] =
-    useState<IModelRegister>(MODEL_INITIAL_DATA);
+    useState(MODEL_INITIAL_DATA);
   // Requisisões das organizações
-  const [modelRequest, setModelRequest] =
-    useState<IModelRequest>({} as IModelRequest);
+  const [modelRequest, setModelRequest] = useState<any>();
   // Erros do formulário
   const [formError, setFormError] = useState("");
   // Avisos
@@ -60,7 +60,7 @@ const CadastrarModelos = () => {
     // Obtem as organizações
     const model = await getModels();
     setModelRequest(model);
-  }
+  };
 
   useEffect(() => {
     handleGetData();
@@ -99,19 +99,19 @@ const CadastrarModelos = () => {
               onClick={() => {
                 isEdit
                   ? handleEditModel(
-                    registerModel,
-                    setModelRequest,
-                    setRegisterModel,
-                    toast,
-                    setFormError
-                  )
+                      registerModel,
+                      setModelRequest,
+                      setRegisterModel,
+                      toast,
+                      setFormError
+                    )
                   : handleSaveModel(
-                    registerModel,
-                    setModelRequest,
-                    setRegisterModel,
-                    toast,
-                    setFormError
-                  );
+                      registerModel,
+                      setModelRequest,
+                      setRegisterModel,
+                      toast,
+                      setFormError
+                    );
               }}
               ml={5}
             >
@@ -124,45 +124,39 @@ const CadastrarModelos = () => {
         props={{
           tableName: "Modelos",
           header: ["Nome"],
-          count: modelRequest.count,
+          count: modelRequest?.lenght,
         }}
       >
-        {modelRequest.models?.length > 0 ? (
-          modelRequest.models.map(
-            (model: IModelRegister, index: number) => {
-              return (
-                <Fragment key={index}>
-                  <Tr>
-                    <Td width={5}>{model.id}</Td>
-                    <Td>{model.nome}</Td>
-                    <Td>
-                      <Button
-                        leftIcon={<FiEdit />}
-                        colorScheme={"gray"}
-                        variant="solid"
-                        bg={colorButtonEdit}
-                        onClick={() => {
-                          toast({
-                            title:
-                              "Modelo " +
-                              model.nome +
-                              " selecionada",
-                            status: "info",
-                            position: "top",
-                            isClosable: true,
-                          });
-                          setRegisterModel(model),
-                            setIsEdit(true);
-                        }}
-                      >
-                        Editar
-                      </Button>
-                    </Td>
-                  </Tr>
-                </Fragment>
-              );
-            }
-          )
+        {modelRequest?.length > 0 ? (
+          modelRequest.map((model: IModelRegister, index: number) => {
+            return (
+              <Fragment key={index}>
+                <Tr>
+                  <Td width={5}>{model.id}</Td>
+                  <Td>{model.nome}</Td>
+                  <Td>
+                    <Button
+                      leftIcon={<FiEdit />}
+                      colorScheme={"gray"}
+                      variant="solid"
+                      bg={colorButtonEdit}
+                      onClick={() => {
+                        toast({
+                          title: "Modelo " + model.nome + " selecionada",
+                          status: "info",
+                          position: "top",
+                          isClosable: true,
+                        });
+                        setRegisterModel(model), setIsEdit(true);
+                      }}
+                    >
+                      Editar
+                    </Button>
+                  </Td>
+                </Tr>
+              </Fragment>
+            );
+          })
         ) : (
           <Tr>
             <Td>Nenhum modelo</Td>

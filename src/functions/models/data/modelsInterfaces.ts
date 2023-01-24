@@ -4,7 +4,7 @@ export interface IModelRegister {
 }
 
 export interface IModelRequest {
-  count: number;
+  lenght: number;
   models: IModelRegister[];
 }
 

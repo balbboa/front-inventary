@@ -16,14 +16,13 @@ export const getModels = async (
 ) => {
 
   let model: IModelRequest = {
-    count: 0,
+    lenght: 0,
     models: [],
   } as IModelRequest;
 
   await apiLaravel.get("fabricante").then((request) => {
-    model = request.data;
+    model = request.data.data;
   });
-
   return model;
 };
 
