@@ -18,7 +18,7 @@ import { parseCookies } from "nookies";
 import { Fragment, useEffect, useState } from "react";
 // Icones
 import { BsPlusSquare } from "react-icons/bs";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiTrash } from "react-icons/fi";
 // Layout
 import Layout from "../../components/Layout";
 // Componentes
@@ -27,17 +27,16 @@ import DefaultTable from "../../components/Table";
 // Cores
 import { colors } from "../../utils/colors";
 // Interfaces
-import {
-  IModelRegister,
-} from "../../functions/models/data/modelsInterfaces";
+import { IModelRegister } from "../../functions/models/data/modelsInterfaces";
 // Funções
 import handleEditModel, {
   getModels,
   handleSaveModel,
+  handleDeleteModel,
 } from "../../functions/models/data/modelsFunctions";
 
 export const MODEL_INITIAL_DATA: any = {
-  nome: "",
+  name: "",
 };
 
 // Componente principal
@@ -45,8 +44,7 @@ const CadastrarModelos = () => {
   // hooks
 
   // Organização
-  const [registerModel, setRegisterModel] =
-    useState(MODEL_INITIAL_DATA);
+  const [registerModel, setRegisterModel] = useState(MODEL_INITIAL_DATA);
   // Requisisões das organizações
   const [modelRequest, setModelRequest] = useState<any>();
   // Erros do formulário
@@ -59,6 +57,7 @@ const CadastrarModelos = () => {
   const handleGetData = async () => {
     // Obtem as organizações
     const model = await getModels();
+    console.log(model);
     setModelRequest(model);
   };
 
@@ -82,12 +81,12 @@ const CadastrarModelos = () => {
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Input
               type="text"
-              value={registerModel.nome}
+              value={registerModel.name}
               isInvalid={formError === "registerModel"}
               onChange={(event) => {
                 setRegisterModel({
                   ...registerModel,
-                  nome: event.currentTarget.value.toUpperCase(),
+                  name: event.currentTarget.value.toUpperCase(),
                 });
                 setFormError("");
               }}
@@ -102,6 +101,7 @@ const CadastrarModelos = () => {
                       registerModel,
                       setModelRequest,
                       setRegisterModel,
+                      setIsEdit,
                       toast,
                       setFormError
                     )
@@ -117,13 +117,32 @@ const CadastrarModelos = () => {
             >
               Salvar
             </Button>
+            {isEdit ? (
+              <Button
+                leftIcon={<FiTrash />}
+                colorScheme="red"
+                variant="solid"
+                onClick={() => {
+                  handleDeleteModel(
+                    registerModel,
+                    setModelRequest,
+                    setRegisterModel,
+                    setIsEdit,
+                    toast
+                  );
+                }}
+                ml={5} p={2}
+              >
+                Deletar
+              </Button>
+            ) : null}
           </Box>
         </FormControl>
       </Card>
       <DefaultTable
         props={{
           tableName: "Modelos",
-          header: ["Nome"],
+          header: ["name"],
           count: modelRequest?.lenght,
         }}
       >
@@ -133,7 +152,7 @@ const CadastrarModelos = () => {
               <Fragment key={index}>
                 <Tr>
                   <Td width={5}>{model.id}</Td>
-                  <Td>{model.nome}</Td>
+                  <Td>{model.name}</Td>
                   <Td>
                     <Button
                       leftIcon={<FiEdit />}
@@ -142,7 +161,7 @@ const CadastrarModelos = () => {
                       bg={colorButtonEdit}
                       onClick={() => {
                         toast({
-                          title: "Modelo " + model.nome + " selecionada",
+                          title: "Modelo " + model.name + " selecionada",
                           status: "info",
                           position: "top",
                           isClosable: true,

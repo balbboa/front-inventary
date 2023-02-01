@@ -20,8 +20,8 @@ export const getModels = async (
     models: [],
   } as IModelRequest;
 
-  await apiLaravel.get("fabricante").then((request) => {
-    model = request.data.data;
+  await apiLaravel.get("models").then((request) => {
+    model = request.data.models;
   });
   return model;
 };
@@ -35,9 +35,9 @@ export const handleSaveModel = async (
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
   const apiLaravel = getAPIClientLaravel();
-  if (registerModel.nome !== "") {
+  if (registerModel.name !== "") {
     await apiLaravel
-      .post("fabricante", registerModel)
+      .post("models", registerModel)
       .then(async () => {
         // Reinicia o formulário
         setRegisterModel(MODEL_INITIAL_DATA);
@@ -74,18 +74,19 @@ export const handleSaveModel = async (
   }
 };
 
-// Edita a organização
+// Edita o modelo
 const handleEditModel = async (
   registerModel: IModelRegister,
   setModelRequest: Dispatch<SetStateAction<IModelRequest>>,
   setRegisterModel: Dispatch<SetStateAction<IModelRegister>>,
+  setIsEdit: Dispatch<SetStateAction<boolean>>,
   toast: (options?: UseToastOptions | undefined) => ToastId,
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
   const apiLaravel = getAPIClientLaravel();
-  if (registerModel.nome !== "") {
+  if (registerModel.name !== "") {
     await apiLaravel
-      .patch("fabricante/" + registerModel.id, registerModel)
+      .patch("models/" + registerModel.id, registerModel)
       .then(async () => {
         // Reinicia o formulário
         setRegisterModel(MODEL_INITIAL_DATA);
@@ -99,6 +100,7 @@ const handleEditModel = async (
           position: "top",
           isClosable: true,
         });
+        setIsEdit(false)
       })
       .catch(() => {
         // Informa o erro vindo da API
@@ -120,6 +122,44 @@ const handleEditModel = async (
       isClosable: true,
     });
   }
+};
+
+// Deleta o modelo
+export const handleDeleteModel = async (
+  registerModel: IModelRegister,
+  setModelRequest: Dispatch<SetStateAction<IModelRequest>>,
+  setRegisterModel: Dispatch<SetStateAction<IModelRegister>>,
+  setIsEdit: Dispatch<SetStateAction<boolean>>,
+  toast: (options?: UseToastOptions | undefined) => ToastId,
+) => {
+  const apiLaravel = getAPIClientLaravel();
+
+    await apiLaravel
+      .delete("models/" + registerModel.id)
+      .then(async () => {
+        // Reinicia o formulário
+        setRegisterModel(MODEL_INITIAL_DATA);
+        // Atualiza a listagem de organizações
+        setModelRequest(await getModels());
+        // Mensagem de sucesso
+        toast({
+          title: "Sucesso!",
+          description: "Modelo deletado.",
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
+        setIsEdit(false)
+      })
+      .catch(() => {
+        // Informa o erro vindo da API
+        toast({
+          title: "Ocorreu um erro na API",
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
+      });
 };
 
 export default handleEditModel;
