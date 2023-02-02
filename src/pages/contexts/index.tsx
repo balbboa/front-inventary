@@ -9,27 +9,6 @@ import { recoverUserInformation, signInRequest } from "../../services/auth";
 import api from "../../services/api";
 
 // Interfaces
-export interface TUser {
-  id: number;
-  name: string;
-  cpf: string;
-  registration: string;
-  createdAt: string;
-  updatedAt: string;
-  organizations: {
-    id: number;
-    name: string;
-  };
-  groups: [
-    {
-      group: {
-        id: number;
-        name: string;
-      };
-    }
-  ];
-}
-
 export interface TSignInData {
   cpf: string;
   password: string;
@@ -37,7 +16,7 @@ export interface TSignInData {
 
 interface TAuthContext {
   isAuthenticated: boolean;
-  user: TUser;
+  user: string | undefined;
   signIn: (data: TSignInData) => Promise<boolean>;
 }
 
@@ -49,7 +28,7 @@ interface TAuthProvider {
 }
 
 const AuthProvider = ({ children }: TAuthProvider) => {
-  const [user, setUser] = useState<TUser>({} as TUser);
+  const [user, setUser] = useState<string | undefined>();
 
   const isAuthenticated = !!user;
 

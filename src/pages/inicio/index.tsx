@@ -14,7 +14,7 @@ import Layout from "../../components/Layout";
 import StatsCard from "../../components/StatsCard";
 
 const Home = () => {
-  
+
   return (
     <Layout props={{ title: "Início" }}>
       Bem-vindo ao sistema,
@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         destination: "/",
         permanent: false,
       },
-    }; 
+    };
   }
 
   return {

@@ -16,6 +16,5 @@ export async function signInRequest(data: TSignInRequestData) {
 
 export async function recoverUserInformation() {
   const { user: user } = parseCookies();
-  const parseUser = JSON.parse(user);
-  return parseUser;
+  return user;
 }

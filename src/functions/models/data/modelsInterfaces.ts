@@ -1,6 +1,8 @@
 export interface IModelRegister {
   id?: number;
   name: string;
+  sku: string;
+  description: string;
 }
 
 export interface IModelRequest {
