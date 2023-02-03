@@ -53,6 +53,13 @@ const Home = () => {
               path={"/cadastrar-modelos"}
             />
           </Flex>
+          <Flex flexDirection={"column"}>
+            <StatsCard
+              icon={<FaHammer size={"2rem"} />}
+              title={"Cadastro de fabricantes"}
+              path={"/cadastrar-fabricantes"}
+            />
+          </Flex>
         </Flex>
     </Layout>
   );
