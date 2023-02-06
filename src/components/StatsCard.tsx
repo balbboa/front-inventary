@@ -13,11 +13,11 @@ const StatsCard = (props: StatsCardProps) => {
   const { title, icon, path } = props;
   return (
     <Stat
-      m={"5"}
-      width={"sm"}
+      m={"2"}
+      width={"xs"}
       cursor={"pointer"}
       px={{ base: 1, md: 5 }}
-      py={"5"}
+      py={"4"}
       shadow={"2xl"}
       bg={useColorModeValue("white", colors.grayWolf)}
       rounded={"lg"}

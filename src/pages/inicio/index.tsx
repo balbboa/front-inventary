@@ -1,7 +1,5 @@
 // Next
-import {
-  Flex,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 // Cookies
 import { parseCookies } from "nookies";
@@ -14,7 +12,6 @@ import Layout from "../../components/Layout";
 import StatsCard from "../../components/StatsCard";
 
 const Home = () => {
-
   return (
     <Layout props={{ title: "Início" }}>
       Bem-vindo ao sistema,
@@ -35,32 +32,25 @@ const Home = () => {
             title={"Cadastro de serviços"}
             path={"/cadastrar-servicos"}
           />
-          </Flex>
-          <Flex flexDirection={"column"}>
-            <StatsCard
-              icon={<FaHammer size={"2rem"} />}
-              title={"Cadastro de demanda de serviços"}
-              path={"/cadastrar-demanda-servicos"}
-            />
-            <StatsCard
-              icon={<FaCartPlus size={"2rem"} />}
-              title={"Cadastro de demanda de itens"}
-              path={"/cadastrar-demanda-itens"}
-            />
-            <StatsCard
-              icon={<FaLaptop size={"2rem"} />}
-              title={"Cadastro de modelos"}
-              path={"/cadastrar-modelos"}
-            />
-          </Flex>
-          <Flex flexDirection={"column"}>
-            <StatsCard
-              icon={<FaHammer size={"2rem"} />}
-              title={"Cadastro de fabricantes"}
-              path={"/cadastrar-fabricantes"}
-            />
-          </Flex>
+          <StatsCard
+            icon={<FaCartPlus size={"2rem"} />}
+            title={"Cadastro de demandas"}
+            path={"/cadastrar-demandas"}
+          />
         </Flex>
+        <Flex flexDirection={"column"}>
+          <StatsCard
+            icon={<FaHammer size={"2rem"} />}
+            title={"Cadastro de fabricantes"}
+            path={"/cadastrar-fabricantes"}
+          />
+          <StatsCard
+            icon={<FaLaptop size={"2rem"} />}
+            title={"Cadastro de modelos"}
+            path={"/cadastrar-modelos"}
+          />
+        </Flex>
+      </Flex>
     </Layout>
   );
 };
