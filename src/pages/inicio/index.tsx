@@ -22,7 +22,7 @@ const Home = () => {
             title={"Cadastro de unidades"}
             path={"/cadastrar-unidades"}
           />
-          <StatsCard
+          {/* <StatsCard
             icon={<FaCartPlus size={"2rem"} />}
             title={"Cadastro de itens"}
             path={"/cadastrar-itens"}
@@ -36,7 +36,7 @@ const Home = () => {
             icon={<FaCartPlus size={"2rem"} />}
             title={"Cadastro de demandas"}
             path={"/cadastrar-demandas"}
-          />
+          /> */}
         </Flex>
         <Flex flexDirection={"column"}>
           <StatsCard
