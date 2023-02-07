@@ -1,8 +1,7 @@
 export interface IOpmRegister {
   id?: number;
   name: string;
-  sku: string;
-  description: string;
+  acronym: string;
 }
 
 export interface IOpmRequest {

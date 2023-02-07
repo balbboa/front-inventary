@@ -44,7 +44,9 @@ const CadastrarFabricantes = () => {
   // hooks
 
   // Organização
-  const [registerManufacturer, setRegisterManufacturer] = useState(MANUFACTURER_INITIAL_DATA);
+  const [registerManufacturer, setRegisterManufacturer] = useState(
+    MANUFACTURER_INITIAL_DATA
+  );
   // Requisisões das organizações
   const [manufacturerRequest, setManufacturerRequest] = useState<any>();
   // Erros do formulário
@@ -55,9 +57,8 @@ const CadastrarFabricantes = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleGetData = async () => {
-    // Obtem as organizações
+    // Obtem os fabricantes
     const manufacturer = await getManufacturers();
-    console.log(manufacturer);
     setManufacturerRequest(manufacturer);
   };
 
@@ -92,6 +93,7 @@ const CadastrarFabricantes = () => {
               }}
             />
             <Button
+              minW={100}
               leftIcon={isEdit ? <FiEdit /> : <BsPlusSquare />}
               colorScheme="green"
               variant="solid"
@@ -119,6 +121,7 @@ const CadastrarFabricantes = () => {
             </Button>
             {isEdit ? (
               <Button
+                minW={100}
                 leftIcon={<FiTrash />}
                 colorScheme="red"
                 variant="solid"
@@ -131,7 +134,8 @@ const CadastrarFabricantes = () => {
                     toast
                   );
                 }}
-                ml={5} p={2}
+                ml={5}
+                p={2}
               >
                 Deletar
               </Button>
@@ -147,35 +151,41 @@ const CadastrarFabricantes = () => {
         }}
       >
         {manufacturerRequest?.length > 0 ? (
-          manufacturerRequest.map((manufacturer: IManufacturerRegister, index: number) => {
-            return (
-              <Fragment key={index}>
-                <Tr>
-                  <Td width={5}>{manufacturer.id}</Td>
-                  <Td>{manufacturer.name}</Td>
-                  <Td>
-                    <Button
-                      leftIcon={<FiEdit />}
-                      colorScheme={"gray"}
-                      variant="solid"
-                      bg={colorButtonEdit}
-                      onClick={() => {
-                        toast({
-                          title: "Fabricante " + manufacturer.name + " selecionado",
-                          status: "info",
-                          position: "top",
-                          isClosable: true,
-                        });
-                        setRegisterManufacturer(manufacturer), setIsEdit(true);
-                      }}
-                    >
-                      Editar
-                    </Button>
-                  </Td>
-                </Tr>
-              </Fragment>
-            );
-          })
+          manufacturerRequest.map(
+            (manufacturer: IManufacturerRegister, index: number) => {
+              return (
+                <Fragment key={index}>
+                  <Tr>
+                    <Td width={5}>{manufacturer.id}</Td>
+                    <Td>{manufacturer.name}</Td>
+                    <Td>
+                      <Button
+                        leftIcon={<FiEdit />}
+                        colorScheme={"gray"}
+                        variant="solid"
+                        bg={colorButtonEdit}
+                        onClick={() => {
+                          toast({
+                            title:
+                              "Fabricante " +
+                              manufacturer.name +
+                              " selecionado",
+                            status: "info",
+                            position: "top",
+                            isClosable: true,
+                          });
+                          setRegisterManufacturer(manufacturer),
+                            setIsEdit(true);
+                        }}
+                      >
+                        Editar
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Fragment>
+              );
+            }
+          )
         ) : (
           <Tr>
             <Td>Nenhum fabricante</Td>

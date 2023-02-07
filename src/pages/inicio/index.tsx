@@ -49,6 +49,11 @@ const Home = () => {
             title={"Cadastro de modelos"}
             path={"/cadastrar-modelos"}
           />
+          <StatsCard
+            icon={<FaLaptop size={"2rem"} />}
+            title={"Cadastro de grupos"}
+            path={"/cadastrar-grupos"}
+          />
         </Flex>
       </Flex>
     </Layout>

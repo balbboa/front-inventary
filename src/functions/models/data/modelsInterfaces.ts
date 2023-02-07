@@ -3,6 +3,8 @@ export interface IModelRegister {
   name: string;
   sku: string;
   description: string;
+  manufacturersId: string;
+  groupId: string;
 }
 
 export interface IModelRequest {

@@ -9,6 +9,7 @@ import {
   Tr,
   useColorModeValue,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 //NextJS
 import { GetServerSideProps } from "next";
@@ -34,9 +35,17 @@ import handleEditModel, {
   handleSaveModel,
   handleDeleteModel,
 } from "../../functions/models/data/modelsFunctions";
+import { getManufacturers } from "../../functions/manufacturers/data/manufacturersFunctions";
+import { IManufacturerRegister } from "../../functions/manufacturers/data/manufacturersInterfaces";
+import { getGroups } from "../../functions/groups/data/groupsFunctions";
+import { IGroupRegister } from "../../functions/groups/data/groupsInterfaces";
 
-export const MODEL_INITIAL_DATA: any = {
+export const MODEL_INITIAL_DATA: IModelRegister = {
   name: "",
+  sku: "",
+  description: "",
+  manufacturersId: "",
+  groupId: "",
 };
 
 // Componente principal
@@ -44,9 +53,12 @@ const CadastrarModelos = () => {
   // hooks
 
   // Organização
-  const [registerModel, setRegisterModel] = useState(MODEL_INITIAL_DATA);
+  const [registerModel, setRegisterModel] =
+    useState<IModelRegister>(MODEL_INITIAL_DATA);
   // Requisisões das organizações
   const [modelRequest, setModelRequest] = useState<any>();
+  const [optionsManufacturers, setOptionsManufacturers] = useState<any>();
+  const [optionsGroups, setOptionsGroups] = useState<any>();
   // Erros do formulário
   const [formError, setFormError] = useState("");
   // Avisos
@@ -57,12 +69,25 @@ const CadastrarModelos = () => {
   const handleGetData = async () => {
     // Obtem as organizações
     const model = await getModels();
-    console.log(model);
     setModelRequest(model);
+  };
+
+  const handleSelectManufacturers = async () => {
+    // Obtem os fabricantes para o select
+    const manufacturer = await getManufacturers();
+    setOptionsManufacturers(manufacturer);
+  };
+
+  const handleSelectGroups = async () => {
+    // Obtem os grupos para o select
+    const groups = await getGroups();
+    setOptionsGroups(groups);
   };
 
   useEffect(() => {
     handleGetData();
+    handleSelectManufacturers();
+    handleSelectGroups();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,13 +98,14 @@ const CadastrarModelos = () => {
       <Card
         props={{
           title: isEdit ? "Editar modelo" : "Cadastrar modelo",
-          maxW: 500,
+          maxW: 1000,
         }}
       >
         <FormControl padding={5}>
           <FormLabel>Modelo</FormLabel>
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Input
+              placeholder="Nome"
               type="text"
               value={registerModel.name}
               isInvalid={formError === "registerModel"}
@@ -91,7 +117,74 @@ const CadastrarModelos = () => {
                 setFormError("");
               }}
             />
+            <Input
+              ml={5}
+              placeholder="SKU"
+              type="text"
+              value={registerModel.sku}
+              isInvalid={formError === "registerModel"}
+              onChange={(event) => {
+                setRegisterModel({
+                  ...registerModel,
+                  sku: event.currentTarget.value.toUpperCase(),
+                });
+                setFormError("");
+              }}
+            />
+            <Input
+              ml={5}
+              placeholder="Descrição"
+              type="text"
+              value={registerModel.description}
+              isInvalid={formError === "registerModel"}
+              onChange={(event) => {
+                setRegisterModel({
+                  ...registerModel,
+                  description: event.currentTarget.value.toUpperCase(),
+                });
+                setFormError("");
+              }}
+            />
+            <Select
+              ml={5}
+              placeholder="Fabricante"
+              value={registerModel.manufacturersId}
+              isInvalid={formError === "registerModel"}
+              onChange={(event) => {
+                setRegisterModel({
+                  ...registerModel,
+                  manufacturersId: event.currentTarget.value,
+                });
+                setFormError("");
+              }}
+            >
+              {optionsManufacturers?.map((option: IManufacturerRegister) => (
+                <option key={option.id} value={option.id}>
+                  {option.name} - {option.id}
+                </option>
+              ))}
+            </Select>
+            <Select
+              ml={5}
+              placeholder="Grupo"
+              value={registerModel.groupId}
+              isInvalid={formError === "registerModel"}
+              onChange={(event) => {
+                setRegisterModel({
+                  ...registerModel,
+                  groupId: event.currentTarget.value,
+                });
+                setFormError("");
+              }}
+            >
+              {optionsGroups?.map((option: IGroupRegister) => (
+                <option key={option.id} value={option.id}>
+                  {option.name} - {option.id}
+                </option>
+              ))}
+            </Select>
             <Button
+              minW={100}
               leftIcon={isEdit ? <FiEdit /> : <BsPlusSquare />}
               colorScheme="green"
               variant="solid"
@@ -119,6 +212,7 @@ const CadastrarModelos = () => {
             </Button>
             {isEdit ? (
               <Button
+                minW={100}
                 leftIcon={<FiTrash />}
                 colorScheme="red"
                 variant="solid"
@@ -131,7 +225,8 @@ const CadastrarModelos = () => {
                     toast
                   );
                 }}
-                ml={5} p={2}
+                ml={5}
+                p={2}
               >
                 Deletar
               </Button>
@@ -142,8 +237,7 @@ const CadastrarModelos = () => {
       <DefaultTable
         props={{
           tableName: "Modelos",
-          header: ["name"],
-          count: modelRequest?.lenght,
+          header: ["Nome", "SKU", "Descrição", "Fabricante", "Grupo"],
         }}
       >
         {modelRequest?.length > 0 ? (
@@ -151,8 +245,11 @@ const CadastrarModelos = () => {
             return (
               <Fragment key={index}>
                 <Tr>
-                  <Td width={5}>{model.id}</Td>
                   <Td>{model.name}</Td>
+                  <Td>{model.sku}</Td>
+                  <Td>{model.description}</Td>
+                  <Td>{model.manufacturersId}</Td>
+                  <Td>{model.groupId}</Td>
                   <Td>
                     <Button
                       leftIcon={<FiEdit />}

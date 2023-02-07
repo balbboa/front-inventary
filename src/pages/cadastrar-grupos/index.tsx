@@ -27,27 +27,26 @@ import DefaultTable from "../../components/Table";
 // Cores
 import { colors } from "../../utils/colors";
 // Interfaces
-import { IOpmRegister } from "../../functions/opms/data/opmsInterfaces";
+import { IGroupRegister } from "../../functions/groups/data/groupsInterfaces";
 // Funções
-import handleEditOpm, {
-  getOpms,
-  handleSaveOpm,
-  handleDeleteOpm,
-} from "../../functions/opms/data/opmsFunctions";
+import handleEditGroup, {
+  getGroups,
+  handleSaveGroup,
+  handleDeleteGroup,
+} from "../../functions/groups/data/groupsFunctions";
 
-export const OPM_INITIAL_DATA: any = {
+export const GROUP_INITIAL_DATA: any = {
   name: "",
-  acronym: "",
 };
 
 // Componente principal
-const CadastrarOpms = () => {
+const CadastrarGrupos = () => {
   // hooks
 
   // Organização
-  const [registerOpm, setRegisterOpm] = useState(OPM_INITIAL_DATA);
+  const [registerGroup, setRegisterGroup] = useState(GROUP_INITIAL_DATA);
   // Requisisões das organizações
-  const [opmRequest, setOpmRequest] = useState<any>();
+  const [groupRequest, setGroupRequest] = useState<any>();
   // Erros do formulário
   const [formError, setFormError] = useState("");
   // Avisos
@@ -56,10 +55,9 @@ const CadastrarOpms = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleGetData = async () => {
-    // Obtem as organizações
-    const opm = await getOpms();
-    console.log(opm);
-    setOpmRequest(opm);
+    // Obtem os grupos
+    const group = await getGroups();
+    setGroupRequest(group);
   };
 
   useEffect(() => {
@@ -70,39 +68,24 @@ const CadastrarOpms = () => {
   const colorButtonEdit = useColorModeValue("gray.300", colors.graySky);
 
   return (
-    <Layout props={{ title: "Cadastrar unidade" }}>
+    <Layout props={{ title: "Cadastrar grupo" }}>
       <Card
         props={{
-          title: isEdit ? "Editar unidade" : "Cadastrar unidade",
-          maxW: 700,
+          title: isEdit ? "Editar grupo" : "Cadastrar grupo",
+          maxW: 500,
         }}
       >
         <FormControl padding={5}>
-          <FormLabel>Unidade</FormLabel>
+          <FormLabel>Grupo</FormLabel>
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Input
               type="text"
-              value={registerOpm.name}
-              isInvalid={formError === "registerOpm"}
+              value={registerGroup.name}
+              isInvalid={formError === "registerGroup"}
               onChange={(event) => {
-                setRegisterOpm({
-                  ...registerOpm,
+                setRegisterGroup({
+                  ...registerGroup,
                   name: event.currentTarget.value.toUpperCase(),
-                });
-                setFormError("");
-              }}
-            />
-            <Input
-              placeholder="Sigla"
-              maxW={100}
-              marginLeft={5}
-              type="text"
-              value={registerOpm.acronym}
-              isInvalid={formError === "registerOpm"}
-              onChange={(event) => {
-                setRegisterOpm({
-                  ...registerOpm,
-                  acronym: event.currentTarget.value.toUpperCase(),
                 });
                 setFormError("");
               }}
@@ -114,18 +97,18 @@ const CadastrarOpms = () => {
               variant="solid"
               onClick={() => {
                 isEdit
-                  ? handleEditOpm(
-                      registerOpm,
-                      setOpmRequest,
-                      setRegisterOpm,
+                  ? handleEditGroup(
+                      registerGroup,
+                      setGroupRequest,
+                      setRegisterGroup,
                       setIsEdit,
                       toast,
                       setFormError
                     )
-                  : handleSaveOpm(
-                      registerOpm,
-                      setOpmRequest,
-                      setRegisterOpm,
+                  : handleSaveGroup(
+                      registerGroup,
+                      setGroupRequest,
+                      setRegisterGroup,
                       toast,
                       setFormError
                     );
@@ -141,10 +124,10 @@ const CadastrarOpms = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={() => {
-                  handleDeleteOpm(
-                    registerOpm,
-                    setOpmRequest,
-                    setRegisterOpm,
+                  handleDeleteGroup(
+                    registerGroup,
+                    setGroupRequest,
+                    setRegisterGroup,
                     setIsEdit,
                     toast
                   );
@@ -160,19 +143,16 @@ const CadastrarOpms = () => {
       </Card>
       <DefaultTable
         props={{
-          tableName: "Unidades",
+          tableName: "Grupos",
           header: ["name"],
-          count: opmRequest?.lenght,
         }}
       >
-        {opmRequest?.length > 0 ? (
-          opmRequest.map((opm: IOpmRegister, index: number) => {
+        {groupRequest?.length > 0 ? (
+          groupRequest.map((group: IGroupRegister, index: number) => {
             return (
               <Fragment key={index}>
                 <Tr>
-                  <Td width={5}>{opm.id}</Td>
-                  <Td>{opm.name}</Td>
-                  <Td>{opm.acronym}</Td>
+                  <Td>{group.name}</Td>
                   <Td>
                     <Button
                       leftIcon={<FiEdit />}
@@ -181,12 +161,12 @@ const CadastrarOpms = () => {
                       bg={colorButtonEdit}
                       onClick={() => {
                         toast({
-                          title: "Opm " + opm.name + " selecionada",
+                          title: "Grupo " + group.name + " selecionado",
                           status: "info",
                           position: "top",
                           isClosable: true,
                         });
-                        setRegisterOpm(opm), setIsEdit(true);
+                        setRegisterGroup(group), setIsEdit(true);
                       }}
                     >
                       Editar
@@ -198,7 +178,7 @@ const CadastrarOpms = () => {
           })
         ) : (
           <Tr>
-            <Td>Nenhuma unidade</Td>
+            <Td>Nenhum grupo</Td>
           </Tr>
         )}
       </DefaultTable>
@@ -206,7 +186,7 @@ const CadastrarOpms = () => {
   );
 };
 
-export default CadastrarOpms;
+export default CadastrarGrupos;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { ["nextauth.token"]: token } = parseCookies(context);

@@ -26,7 +26,7 @@ export const getOpms = async (
   return opm;
 };
 
-// Salva o opmo
+// Salva a opm
 export const handleSaveOpm = async (
   registerOpm: IOpmRegister,
   setOpmRequest: Dispatch<SetStateAction<IOpmRequest>>,
@@ -46,7 +46,7 @@ export const handleSaveOpm = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Opmo cadastrado.",
+          description: "Opm cadastrada.",
           status: "success",
           position: "top",
           isClosable: true,
@@ -54,7 +54,7 @@ export const handleSaveOpm = async (
       })
       .catch((error) => {
         toast({
-          title: "Erro ao cadastrar o opmo",
+          title: "Erro ao cadastrar a opm",
           description: error.status,
           status: "error",
           position: "top",
@@ -65,7 +65,7 @@ export const handleSaveOpm = async (
     // Informa o erro do formulário
     setFormError("registerOpm");
     toast({
-      title: "Erro ao cadastrar o opmo",
+      title: "Erro ao cadastrar a opm",
       description: "Campo NOME inválido",
       status: "error",
       position: "top",
@@ -74,7 +74,7 @@ export const handleSaveOpm = async (
   }
 };
 
-// Edita o opmo
+// Edita a opm
 const handleEditOpm = async (
   registerOpm: IOpmRegister,
   setOpmRequest: Dispatch<SetStateAction<IOpmRequest>>,
@@ -95,7 +95,7 @@ const handleEditOpm = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Opmo editado.",
+          description: "Opm editada.",
           status: "success",
           position: "top",
           isClosable: true,
@@ -115,7 +115,7 @@ const handleEditOpm = async (
     // Informa o erro do formulário
     setFormError("registerOpm");
     toast({
-      title: "Erro ao cadastrar o opmo",
+      title: "Erro ao cadastrar a opm",
       description: "Campo NOME inválido",
       status: "error",
       position: "top",
@@ -124,7 +124,7 @@ const handleEditOpm = async (
   }
 };
 
-// Deleta o opmo
+// Deleta a opm
 export const handleDeleteOpm = async (
   registerOpm: IOpmRegister,
   setOpmRequest: Dispatch<SetStateAction<IOpmRequest>>,
@@ -144,7 +144,7 @@ export const handleDeleteOpm = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Opmo deletado.",
+          description: "Opm deletada.",
           status: "success",
           position: "top",
           isClosable: true,

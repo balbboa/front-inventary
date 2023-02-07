@@ -46,7 +46,7 @@ export const handleSaveManufacturer = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Manufacturero cadastrado.",
+          description: "Fabricante cadastrado.",
           status: "success",
           position: "top",
           isClosable: true,
@@ -54,7 +54,7 @@ export const handleSaveManufacturer = async (
       })
       .catch((error) => {
         toast({
-          title: "Erro ao cadastrar o manufacturero",
+          title: "Erro ao cadastrar o fabricante",
           description: error.status,
           status: "error",
           position: "top",
@@ -65,7 +65,7 @@ export const handleSaveManufacturer = async (
     // Informa o erro do formulário
     setFormError("registerManufacturer");
     toast({
-      title: "Erro ao cadastrar o manufacturero",
+      title: "Erro ao cadastrar o fabricante",
       description: "Campo NOME inválido",
       status: "error",
       position: "top",
@@ -95,7 +95,7 @@ const handleEditManufacturer = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Manufacturero editado.",
+          description: "Fabricante editado.",
           status: "success",
           position: "top",
           isClosable: true,
@@ -115,7 +115,7 @@ const handleEditManufacturer = async (
     // Informa o erro do formulário
     setFormError("registerManufacturer");
     toast({
-      title: "Erro ao cadastrar o manufacturero",
+      title: "Erro ao cadastrar o fabricante",
       description: "Campo NOME inválido",
       status: "error",
       position: "top",
@@ -144,7 +144,7 @@ export const handleDeleteManufacturer = async (
         // Mensagem de sucesso
         toast({
           title: "Sucesso!",
-          description: "Manufacturero deletado.",
+          description: "Fabricante deletado.",
           status: "success",
           position: "top",
           isClosable: true,
