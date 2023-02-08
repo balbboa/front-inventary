@@ -22,12 +22,12 @@ const Home = () => {
             title={"Cadastro de unidades"}
             path={"/cadastrar-unidades"}
           />
-          {/* <StatsCard
-            icon={<FaCartPlus size={"2rem"} />}
-            title={"Cadastro de itens"}
-            path={"/cadastrar-itens"}
-          />
           <StatsCard
+            icon={<FaCartPlus size={"2rem"} />}
+            title={"Cadastro de items"}
+            path={"/cadastrar-items"}
+          />
+          {/* <StatsCard
             icon={<FaHammer size={"2rem"} />}
             title={"Cadastro de serviços"}
             path={"/cadastrar-servicos"}

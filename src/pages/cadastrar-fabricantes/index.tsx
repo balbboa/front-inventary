@@ -146,8 +146,7 @@ const CadastrarFabricantes = () => {
       <DefaultTable
         props={{
           tableName: "Fabricantes",
-          header: ["name"],
-          count: manufacturerRequest?.lenght,
+          header: ["Nome"],
         }}
       >
         {manufacturerRequest?.length > 0 ? (
@@ -156,7 +155,6 @@ const CadastrarFabricantes = () => {
               return (
                 <Fragment key={index}>
                   <Tr>
-                    <Td width={5}>{manufacturer.id}</Td>
                     <Td>{manufacturer.name}</Td>
                     <Td>
                       <Button

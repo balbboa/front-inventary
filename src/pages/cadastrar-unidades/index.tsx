@@ -161,8 +161,7 @@ const CadastrarOpms = () => {
       <DefaultTable
         props={{
           tableName: "Unidades",
-          header: ["name"],
-          count: opmRequest?.lenght,
+          header: ["Unidade", "Sigla"],
         }}
       >
         {opmRequest?.length > 0 ? (
@@ -170,7 +169,6 @@ const CadastrarOpms = () => {
             return (
               <Fragment key={index}>
                 <Tr>
-                  <Td width={5}>{opm.id}</Td>
                   <Td>{opm.name}</Td>
                   <Td>{opm.acronym}</Td>
                   <Td>
