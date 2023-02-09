@@ -7,6 +7,7 @@ import { parseCookies } from "nookies";
 import { FaCartPlus } from "react-icons/fa";
 import { FaUniversity } from "react-icons/fa";
 import { FaHammer } from "react-icons/fa";
+import { FaHouseUser } from "react-icons/fa";
 import { FaLaptop } from "react-icons/fa";
 import Layout from "../../components/Layout";
 import StatsCard from "../../components/StatsCard";
@@ -27,16 +28,16 @@ const Home = () => {
             title={"Cadastro de items"}
             path={"/cadastrar-items"}
           />
-          {/* <StatsCard
-            icon={<FaHammer size={"2rem"} />}
-            title={"Cadastro de serviços"}
-            path={"/cadastrar-servicos"}
+          <StatsCard
+            icon={<FaHouseUser size={"2rem"} />}
+            title={"Cadastro de imóvel"}
+            path={"/cadastrar-imoveis"}
           />
           <StatsCard
             icon={<FaCartPlus size={"2rem"} />}
-            title={"Cadastro de demandas"}
-            path={"/cadastrar-demandas"}
-          /> */}
+            title={"Cadastro de serviços"}
+            path={"/cadastrar-servicos"}
+          />
         </Flex>
         <Flex flexDirection={"column"}>
           <StatsCard
@@ -53,6 +54,16 @@ const Home = () => {
             icon={<FaLaptop size={"2rem"} />}
             title={"Cadastro de grupos"}
             path={"/cadastrar-grupos"}
+          />
+          <StatsCard
+            icon={<FaLaptop size={"2rem"} />}
+            title={"Cadastro de fornecedores"}
+            path={"/cadastrar-fornecedores"}
+          />
+          <StatsCard
+            icon={<FaLaptop size={"2rem"} />}
+            title={"Cadastro de tipos de serviço"}
+            path={"/cadastrar-tipos-servico"}
           />
         </Flex>
       </Flex>
