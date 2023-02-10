@@ -1,4 +1,10 @@
-import { Box, Flex, Stat, StatLabel, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Stat,
+  StatLabel,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Router from "next/router";
 import { ReactNode } from "react";
 import { colors } from "../utils/colors";
@@ -13,7 +19,7 @@ const StatsCard = (props: StatsCardProps) => {
   const { title, icon, path } = props;
   return (
     <Stat
-      m={"2"}
+      m={"4"}
       width={"xs"}
       cursor={"pointer"}
       px={{ base: 1, md: 5 }}
