@@ -1,6 +1,6 @@
 export interface IServiceDemandRegister {
   id?: number;
-  serviceType: string;
+  serviceTypeId: string;
   amount: string;
   justify: string;
 }

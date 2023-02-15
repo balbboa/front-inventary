@@ -33,7 +33,7 @@ export const handleSaveItemDemand = async (
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
   const apiLaravel = getAPIClientLaravel();
-  if (registerItemDemand.group !== "") {
+  if (registerItemDemand.groupId !== "") {
     await apiLaravel
       .post("itemDemands", registerItemDemand)
       .then(async () => {
@@ -82,7 +82,7 @@ const handleEditItemDemand = async (
   setFormError: Dispatch<SetStateAction<string>>
 ) => {
   const apiLaravel = getAPIClientLaravel();
-  if (registerItemDemand.group !== "") {
+  if (registerItemDemand.groupId !== "") {
     await apiLaravel
       .patch("itemDemands/" + registerItemDemand.id, registerItemDemand)
       .then(async () => {

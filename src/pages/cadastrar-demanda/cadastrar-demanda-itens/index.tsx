@@ -39,7 +39,7 @@ import { getGroups } from "../../../functions/groups/data/groupsFunctions";
 import { IGroupRegister } from "../../../functions/groups/data/groupsInterfaces";
 
 export const ITEM_DEMAND_INITIAL_DATA: IItemDemandRegister = {
-  group: "",
+  groupId: "",
   amount: "",
   justify: "",
 };
@@ -96,12 +96,12 @@ const CadastrarItemDemandas = () => {
           <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Select
               placeholder="Grupo"
-              value={registerItemDemand.group}
+              value={registerItemDemand.groupId}
               isInvalid={formError === "registerItemDemand"}
               onChange={(event) => {
                 setRegisterItemDemand({
                   ...registerItemDemand,
-                  group: event.currentTarget.value,
+                  groupId: event.currentTarget.value,
                 });
                 setFormError("");
               }}
@@ -194,7 +194,7 @@ const CadastrarItemDemandas = () => {
       <DefaultTable
         props={{
           tableName: "ItemDemandas",
-          header: ["Grupo", "Tipo de serviço", "Quantidade", "Justificativa"],
+          header: ["Grupo", "Quantidade", "Justificativa"],
         }}
       >
         {itemDemandRequest?.length > 0 ? (
@@ -203,7 +203,7 @@ const CadastrarItemDemandas = () => {
               return (
                 <Fragment key={index}>
                   <Tr>
-                    <Td>{itemDemand.group}</Td>
+                    <Td>{itemDemand.groupId}</Td>
                     <Td>{itemDemand.amount}</Td>
                     <Td>{itemDemand.justify}</Td>
                     <Td>
@@ -215,8 +215,8 @@ const CadastrarItemDemandas = () => {
                         onClick={() => {
                           toast({
                             title:
-                              "ItemDemanda " +
-                              itemDemand.group +
+                              "Demanda de " +
+                              itemDemand.groupId +
                               " selecionada",
                             status: "info",
                             position: "top",

@@ -1,6 +1,6 @@
 export interface IItemDemandRegister {
   id?: number;
-  group: string;
+  groupId: string;
   amount: string;
   justify: string;
 }
