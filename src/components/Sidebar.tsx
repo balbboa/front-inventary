@@ -19,9 +19,8 @@ import Router from "next/router";
 // Icones
 import { IconType } from "react-icons";
 import { AiOutlineFlag } from "react-icons/ai";
-import { BiBuilding } from "react-icons/bi";
 import { CgTimer } from "react-icons/cg";
-import { FiHome, FiSettings, FiUsers } from "react-icons/fi";
+import { FiHome, FiUsers } from "react-icons/fi";
 import { VscSignOut } from "react-icons/vsc";
 
 // Cores
@@ -32,7 +31,6 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import LogoDark from "../assets/images/logo_dark.png";
 import Logo from "../assets/images/logo_light.png";
-import { TUser } from "../pages/contexts";
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
@@ -149,12 +147,20 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 
 export default SidebarContent;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { user: user } = parseCookies();
-  const parseUser = JSON.parse(user);
-  const userSession: TUser = parseUser;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { ["nextauth.token"]: token } = parseCookies(context);
+
+  // Verifica se o usuário está logado
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
-    props: { userSession },
+    props: {},
   };
 };

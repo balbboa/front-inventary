@@ -35,8 +35,6 @@ import handleEditServiceDemand, {
   handleSaveServiceDemand,
   handleDeleteServiceDemand,
 } from "../../../functions/serviceDemands/data/serviceDemandsFunctions";
-import { getManufacturers } from "../../../functions/manufacturers/data/manufacturersFunctions";
-import { IManufacturerRegister } from "../../../functions/manufacturers/data/manufacturersInterfaces";
 import { getGroups } from "../../../functions/groups/data/groupsFunctions";
 import { IGroupRegister } from "../../../functions/groups/data/groupsInterfaces";
 
@@ -55,7 +53,6 @@ const CadastrarServiceDemandas = () => {
     useState<IServiceDemandRegister>(SERVICE_DEMAND_INITIAL_DATA);
   // Requisisões das organizações
   const [serviceDemandRequest, setServiceDemandRequest] = useState<any>();
-  const [optionsManufacturers, setOptionsManufacturers] = useState<any>();
   const [optionsGroups, setOptionsGroups] = useState<any>();
   // Erros do formulário
   const [formError, setFormError] = useState("");
@@ -70,12 +67,6 @@ const CadastrarServiceDemandas = () => {
     setServiceDemandRequest(serviceDemand);
   };
 
-  const handleSelectManufacturers = async () => {
-    // Obtem os fabricantes para o select
-    const manufacturer = await getManufacturers();
-    setOptionsManufacturers(manufacturer);
-  };
-
   const handleSelectGroups = async () => {
     // Obtem os grupos para o select
     const groups = await getGroups();
@@ -84,7 +75,6 @@ const CadastrarServiceDemandas = () => {
 
   useEffect(() => {
     handleGetData();
-    handleSelectManufacturers();
     handleSelectGroups();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
